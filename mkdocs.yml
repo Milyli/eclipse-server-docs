@@ -1,0 +1,5 @@
+site_name: Project Eclipse Guides
+nav:
+  - 'Server Guides':
+    - 'Linux (Ubuntu)': 'getting-started-ubuntu.md'
+theme: readthedocs
