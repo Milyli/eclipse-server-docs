@@ -42,6 +42,16 @@
               <p class="caption"><span class="caption-text">Server Guides</span></p>
               <ul class="current">
                   <li class="toctree-l1 current"><a class="reference internal current" href="#">Linux (Ubuntu)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#vm-setup-and-docker-engine-installation">VM Setup and Docker Engine Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-ubuntu-vm">Installing Ubuntu VM</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                   </li>
               </ul>
       </div>
@@ -68,7 +78,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <p><img src="../img/Milyli Logo_blue product.png" style="height: 80px;" /></p>
+<h1 id="hosting-eclipse-w-docker-engine-on-ubuntu">Hosting Eclipse w/ Docker Engine on Ubuntu</h1>
+<h2 id="requirements">Requirements</h2>
+<p>The following user guide was built using the Ubuntu Noble 24.04 (LTS, 64-bit) running via Hyper-V on a Windows 11 desktop computer on Milyli’s private network.  </p>
+<p>Nearly all steps followed in this guide can be followed regardless of the host machine of the Linux distribution including a Linux server running Ubuntu, a Windows Server with an Ubuntu VM, or a VM hosted on a cloud service such as Azure or AWS.</p>
+<p>Native cloud service hosting is supported but not covered via this document.</p>
+<p>This guide will install and use Docker Engine via Docker’s apt repository rather than use Docker Desktop for Linux. If you are using an existing server, you should ensure that old docker files are removed. For more details refer to the <a href="https://docs.docker.com/engine/install/ubuntu/#uninstall-old-versions">Docker removal instructions</a>.</p>
+<p>Note: For more general information about Docker and its related components, please refer to the <a href="https://www.docker.com/">official documentation</a>.</p>
+<p><strong>Supported Ubuntu Versions (64-bit)</strong></p>
+<ul>
+<li>Ubuntu Noble 24.04 (LTS)</li>
+<li>Ubuntu Mantic 23.10 (EOL: July 12, 2024)</li>
+<li>Ubuntu Jammy 22.04 (LTS)</li>
+<li>Ubuntu Focal 20.04 (LTS)</li>
+</ul>
+<h2 id="vm-setup-and-docker-engine-installation">VM Setup and Docker Engine Installation</h2>
+<h3 id="installing-ubuntu-vm">Installing Ubuntu VM</h3>
+<p>Your approach to hosting Linux should not impact the following steps if a supported 64-bit Ubuntu distribution is used. This guide utilizes <strong>Ubuntu 22.04 LTS</strong> installed on a networked computer with <strong>Hyper-V Quick Create</strong>.</p>
+<p>Launch the Hyper-V Quick Create tool and select Ubuntu 22.04 LTS.</p>
+<p><img alt="CreateUbuntuVirtualMachine" src="../img/CreateUbuntuVirtualMachine.png" /></p>
               
             </div>
           </div><footer>

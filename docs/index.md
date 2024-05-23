@@ -1,17 +1,11 @@
 # Welcome to Project Eclipse Docs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+<img src="../img/Milyli Logo_blue product.png" style="height: 80px;" />
 
-## Commands
+The guides on this website are hosted as a part of the Milyli Github account and made available via GitHub Pages. They are meant to help you get up and running with Project Eclipse Server Alpha and Beta.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+For any questions pertaining to these guides, Project Eclipse, or, if you want to learn more please contact the following individuals by email:
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+- Tim Randall, Director of Product Management - `tim@milyli.com`
+- Carl Layton, Project Eclipse Architect - `carl@milyli.com`
+- Jacob Malliet, Project Eclipse Engineering Manager - `jacob@milyli.com`

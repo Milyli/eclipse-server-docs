@@ -1,5 +1,5 @@
 site_name: Project Eclipse Guides
 nav:
-  - 'Server Guides':
+  - 'On-Premises Setup Guides':
     - 'Linux (Ubuntu)': 'getting-started-ubuntu.md'
 theme: readthedocs
