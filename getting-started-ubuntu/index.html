@@ -89,6 +89,8 @@
     </li>
     </ul>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../getting-started-windows/">Windows (Docker Desktop)</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -114,7 +116,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <p><img src="../img/Milyli Logo_blue product.png" style="height: 80px;" /></p>
+                <p><img src="../img/milylilogo.png" style="height: 80px;" /></p>
 <h1 id="hosting-eclipse-w-docker-engine-on-ubuntu">Hosting Eclipse w/ Docker Engine on Ubuntu</h1>
 <h2 id="requirements">Requirements</h2>
 <p>The following user guide was built using the Ubuntu Noble 24.04 (LTS, 64-bit) running via Hyper-V on a Windows 11 desktop computer on Milyli’s private network.  </p>
@@ -133,10 +135,10 @@
 <h3 id="installing-ubuntu-vm">Installing Ubuntu VM</h3>
 <p>Your approach to hosting Linux should not impact the following steps if a supported 64-bit Ubuntu distribution is used. This guide utilizes <strong>Ubuntu 22.04 LTS</strong> installed on a networked computer with <strong>Hyper-V Quick Create</strong>.</p>
 <p>Launch the Hyper-V Quick Create tool and select Ubuntu 22.04 LTS.</p>
-<p><img alt="CreateUbuntuVirtualMachine" src="../img/CreateUbuntuVirtualMachine.png" /></p>
+<p><img alt="CreateUbuntuVirtualMachine" src="../img/linux/ubuntu/CreateUbuntuVirtualMachine.png" /></p>
 <h3 id="configuring-the-vm-and-connecting">Configuring the VM and Connecting</h3>
 <p>Follow the prompts and leave all settings as default to begin with. On the Virtual Machine Created Succesfully screen, select <strong>Edit Settings...</strong></p>
-<p><img alt="UbuntuSuccess" src="../img/UbuntuSuccess.png" /></p>
+<p><img alt="UbuntuSuccess" src="../img/linux/ubuntu/UbuntuSuccess.png" /></p>
 <p>In a later step, we will push the docker container image into this VM. Now is the best time to expand the number of resources on the VM to better accommodate Eclipse. For this guide, we made the following adjustments.</p>
 <ol>
 <li>Increase the memory on the virutal machine from <code>4096</code> to <code>8192</code>.</li>
@@ -144,8 +146,8 @@
 <li>Edit the hard drive and choose to expand it from <code>12 GB</code> to <code>36 GB</code> or a greater number.</li>
 </ol>
 <p>If your organization has additional requirements for the VM, make those changes now. Once complete, connect to and log into the VM.</p>
-<p>You will be required to create a user account as a part of the oeprating system's first startup. This account will have access to perform root commands. This guide will utilize this user for all following steps.</p>
-<p><img alt="UbuntuUserCreation" src="../img/UserCreation.png" /></p>
+<p>You will be required to create a user account as a part of the operating system's first startup. This account will have access to perform root commands. This guide will utilize this user for all following steps.</p>
+<p><img alt="UbuntuUserCreation" src="../img/linux/ubuntu/UserCreation.png" /></p>
 <h3 id="expand-the-hard-disk">Expand the Hard Disk</h3>
 <p>Hyper-V partitions the hard drive at the initial 12 GB automatically as a part of the quick-create process.  </p>
 <p>Ubuntu hosted on Hyper-V may have issues when trying to use <code>lvdisplay</code>,<code>lvextend</code>, or <code>GParted</code>. For this guide, <code>Cloud Guest Util</code>s` was used.</p>
@@ -153,7 +155,7 @@
 <li>Open the terminal.</li>
 <li>
 <p>Run the command <code>sudo fdisk -l</code> and note the name of the primary Linnux filesystem (if following along, it should be <code>/dev/sda1</code>).</p>
-<p><img alt="fdiskCommand" src="../img/fdisk.png" /></p>
+<p><img alt="fdiskCommand" src="../img/linux/ubuntu/fdisk.png" /></p>
 </li>
 <li>
 <p>Install Cloud Guest Utils using the command <code>sudo apt install cloud-guest utils</code></p>
@@ -161,11 +163,11 @@
 <li>Grow the partition using the command <code>sudo growpart /dev/sda 1</code></li>
 <li>Resize the partition using the command <code>sudo resize2fs /dev/sda1</code></li>
 </ol>
-<p><img alt="fdiskSuccess" src="../img/ExpandDiskSuccess.png" /></p>
+<p><img alt="fdiskSuccess" src="../img/linux/ubuntu/ExpandDiskSuccess.png" /></p>
 <h3 id="install-docker-engine-from-repository">Install Docker Engine From Repository</h3>
 <p>To install Docker Engine the full, detailed instructions should be followed. These are available on the official <a href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository">docker guide</a>.</p>
 <p>Follow the guide up until the step for running the <code>hello-world</code> docker container.</p>
-<p><img alt="HelloWorld" src="../img/hello-world-success.png" /></p>
+<p><img alt="HelloWorld" src="../img/linux/ubuntu/hello-world-success.png" /></p>
 <h2 id="create-a-developer-certificate">Create a Developer Certificate</h2>
 <p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a validate certificate authority should be used to generate the PFX.</p>
 <p>A developer certificate can easily be created using Windows PowerShell and the following commands.</p>
@@ -180,7 +182,7 @@ $Pwd = ConvertTo-SecureString -String &quot;eclipse&quot; -Force -AsPlainText
 
 Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot; -Password $Pwd
 </code></pre>
-<p><img alt="CreateCert" src="../img/cert/cert-create.png" /></p>
+<p><img alt="CreateCert" src="../img/linux/ubuntu/cert/cert-create.png" /></p>
 <h2 id="load-eclipse-container-image">Load Eclipse Container Image</h2>
 <h3 id="create-volume-folders">Create Volume Folders</h3>
 <p>If you have organization specific processes for creating folders, please follow those at this point.</p>
@@ -189,13 +191,13 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <li>Inside the <code>eclipse</code> folder, create three additional folders named <code>logs</code>, <code>https</code>, and <code>db</code>.</li>
 <li>Update the volume folder permissions to 777 with the <code>chmod</code> command.</li>
 </ol>
-<p><img alt="Chmod" src="../img/loadimage/chmod-folders.png" /></p>
+<p><img alt="Chmod" src="../img/linux/ubuntu/loadimage/chmod-folders.png" /></p>
 <h3 id="store-container-image-and-cert-on-vm">Store Container Image and Cert on VM</h3>
 <p>If the VM is connected to the internet, download the container image file Milyli shared with you to the <code>eclipse</code> folder.</p>
 <p>The PFX created in the previous step should be placed in the <code>eclipse\https</code> directory.</p>
 <p>If the files are on a host machine and you do not already have tools for pushing files into your virtual machine, SSH is a powerful and secure way of doing so. Using the SCP PowerShell command from the host machine enables easy transfer to VM.</p>
 <p>If you are unsure of the IP address of your virtual machine, use the following command and note the Get-NetNeighbor command <code>Get-NetNeighbor -LinkLayerAddress 00-15-5d-*</code> and take note of it for later steps.</p>
-<p><img alt="NetNeighbor" src="../img/loadimage/get-netneighbor.png" /></p>
+<p><img alt="NetNeighbor" src="../img/linux/ubuntu/loadimage/get-netneighbor.png" /></p>
 <p>The easiest way to make SSH requests to the VM is by installing <code>openssh server</code> with the terminal command <code>sudo apt install openssh-server</code>.</p>
 <p>For the example file transfers below, the image and PFX file have been saved on the VM host machine inn the <code>c:\eclipse</code> directory.</p>
 <ol>
@@ -203,18 +205,18 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <li>Change the directory to <code>c:\eclipse</code>.</li>
 <li>
 <p>From the host machine, run the SCP command <code>scp eclipse.pfx [username]@[ipaddress]:/home/[username]/eclipse/https</code>.</p>
-<p><img alt="ScpCert" src="../img/loadimage/scp-certificate.png" /></p>
+<p><img alt="ScpCert" src="../img/linux/ubuntu/loadimage/scp-certificate.png" /></p>
 </li>
 <li>
 <p>From the host machine, run the SCP command <code>scp eclipse.server.alpha-6 [username]@[ipaddress]:/home/[username]/eclipse</code>.</p>
-<p><img alt="ScpImage" src="../img/loadimage/scp-image.png" /></p>
+<p><img alt="ScpImage" src="../img/linux/ubuntu/loadimage/scp-image.png" /></p>
 </li>
 </ol>
 <h3 id="load-container-image">Load Container Image</h3>
 <p>Finally, load the image into Docker Engine with the docker load command.</p>
 <pre><code class="language-bash">sudo docker load -i eclipse.server.alpha-6
 </code></pre>
-<p><img alt="DockerLoad" src="../img/loadimage/docker-load.png" /></p>
+<p><img alt="DockerLoad" src="../img/linux/ubuntu/loadimage/docker-load.png" /></p>
 <h2 id="running-eclipse-container">Running Eclipse Container</h2>
 <p>With the container loaded, we're ready to get it running. Replace the values of the parameters in the following command with the ones that match the work you've done in previous steps.</p>
 <pre><code class="language-bash">sudo docker run -dt -e &quot;ASPNETCORE_URLS=https://+:443&quot; -e &quot;ASPNETCORE_Kestrel__Certificates__Default__Password=[YOURPASSWORD]&quot; -e &quot;ASPNETCORE_Kestrel__Certificates__Default__Path=/https/[YOURCERTIFICATENAME].pfx&quot; -e &quot;ASPNETCORE_HTTPS_PORT=443&quot; -p 8000:443 --name Milyli.Eclipse.Server.Web -v /[PATHTOHTTPSFOLDER]/https:/https:ro -v /[PATHTODBFOLDER]/db:/db:rw -v /[PATHTOLOGSFOLDER]/logs:/logs:rw milyli.eclipse.server
@@ -222,10 +224,10 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <p>Below is an example with the values from this guide.</p>
 <pre><code class="language-bash">sudo docker run -dt -e &quot;ASPNETCORE_URLS=https://+:443&quot; -e &quot;ASPNETCORE_Kestrel__Certificates__Default__Password=eclipse&quot; -e &quot;ASPNETCORE_Kestrel__Certificates__Default__Path=/https/eclipse.pfx&quot; -e &quot;ASPNETCORE_HTTPS_PORT=443&quot; -p 8000:443 --name Milyli.Eclipse.Server.Web -v /home/tim/eclipse/https:/https:ro -v /home/tim/eclipse/db:/db:rw -v /home/tim/eclipse/logs:/logs:rw milyli.eclipse.server
 </code></pre>
-<p><img alt="RunImage" src="../img/run/run-command.png" /></p>
+<p><img alt="RunImage" src="../img/linux/ubuntu/run/run-command.png" /></p>
 <p>If following along, Eclipse should now be running on your VM!</p>
 <p>Navigate to <code>https://localhost:8000/swagger/index.html</code> on the VM to verify it's running successfully!</p>
-<p><img alt="Running" src="../img/run/eclipse-running.png" /></p>
+<p><img alt="Running" src="../img/linux/ubuntu/run/eclipse-running.png" /></p>
 <p>At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: <code>https://[IPADDRESS]:8000/swagger/index.html</code>. Additional steps will be required of your organization's network administrator to ensure the Eclipse server visible to your Relativity instance. </p>
 <p>In order for the Eclipse Relativity Application to access the server, the agent(s) servers where the Eclipse Agent will be created must have access to the base URL of the Eclipse server.</p>
 <h2 id="useful-commands">Useful Commands</h2>
@@ -243,6 +245,9 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../getting-started-windows/" class="btn btn-neutral float-right" title="Windows (Docker Desktop)">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
 
   <hr/>
 
@@ -264,6 +269,8 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
+    
+      <span><a href="../getting-started-windows/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
