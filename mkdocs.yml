@@ -2,4 +2,5 @@ site_name: Project Eclipse Guides
 nav:
   - 'On-Premises Setup Guides':
     - 'Linux (Ubuntu)': 'getting-started-ubuntu.md'
+    - 'Windows (Docker Desktop)': 'getting-started-windows.md'
 theme: readthedocs

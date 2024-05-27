@@ -1,4 +1,4 @@
-<img src="../img/Milyli Logo_blue product.png" style="height: 80px;" />
+<img src="../img/milylilogo.png" style="height: 80px;" />
 
 # Hosting Eclipse w/ Docker Engine on Ubuntu
 
@@ -29,13 +29,13 @@ Your approach to hosting Linux should not impact the following steps if a suppor
 
 Launch the Hyper-V Quick Create tool and select Ubuntu 22.04 LTS.
 
-![CreateUbuntuVirtualMachine](img/CreateUbuntuVirtualMachine.png)
+![CreateUbuntuVirtualMachine](img/linux/ubuntu/CreateUbuntuVirtualMachine.png)
 
 ### Configuring the VM and Connecting
 
 Follow the prompts and leave all settings as default to begin with. On the Virtual Machine Created Succesfully screen, select **Edit Settings...**
 
-![UbuntuSuccess](img/UbuntuSuccess.png)
+![UbuntuSuccess](img/linux/ubuntu/UbuntuSuccess.png)
 
 In a later step, we will push the docker container image into this VM. Now is the best time to expand the number of resources on the VM to better accommodate Eclipse. For this guide, we made the following adjustments.
 
@@ -45,9 +45,9 @@ In a later step, we will push the docker container image into this VM. Now is th
 
 If your organization has additional requirements for the VM, make those changes now. Once complete, connect to and log into the VM.
 
-You will be required to create a user account as a part of the oeprating system's first startup. This account will have access to perform root commands. This guide will utilize this user for all following steps.
+You will be required to create a user account as a part of the operating system's first startup. This account will have access to perform root commands. This guide will utilize this user for all following steps.
 
-![UbuntuUserCreation](img/UserCreation.png)
+![UbuntuUserCreation](img/linux/ubuntu/UserCreation.png)
 
 ### Expand the Hard Disk
 
@@ -58,13 +58,13 @@ Ubuntu hosted on Hyper-V may have issues when trying to use `lvdisplay`,`lvexten
 1. Open the terminal.
 2. Run the command `sudo fdisk -l` and note the name of the primary Linnux filesystem (if following along, it should be `/dev/sda1`).
 
-    ![fdiskCommand](img/fdisk.png)
+    ![fdiskCommand](img/linux/ubuntu/fdisk.png)
 
 3. Install Cloud Guest Utils using the command `sudo apt install cloud-guest utils`
 4. Grow the partition using the command `sudo growpart /dev/sda 1`
 5. Resize the partition using the command `sudo resize2fs /dev/sda1`
 
-![fdiskSuccess](img/ExpandDiskSuccess.png)
+![fdiskSuccess](img/linux/ubuntu/ExpandDiskSuccess.png)
 
 ### Install Docker Engine From Repository
 
@@ -72,7 +72,7 @@ To install Docker Engine the full, detailed instructions should be followed. The
 
 Follow the guide up until the step for running the `hello-world` docker container.
 
-![HelloWorld](img/hello-world-success.png)
+![HelloWorld](img/linux/ubuntu/hello-world-success.png)
 
 ## Create a Developer Certificate
 
@@ -92,7 +92,7 @@ $Pwd = ConvertTo-SecureString -String "eclipse" -Force -AsPlainText
 Export-PfxCertificate -Cert $NewCert -FilePath "C:\eclipse\eclipse.pfx" -Password $Pwd
 ```
 
-![CreateCert](img/cert/cert-create.png)
+![CreateCert](img/linux/ubuntu/cert/cert-create.png)
 
 ## Load Eclipse Container Image
 
@@ -104,7 +104,7 @@ If you have organization specific processes for creating folders, please follow 
 2. Inside the `eclipse` folder, create three additional folders named `logs`, `https`, and `db`.
 3. Update the volume folder permissions to 777 with the `chmod` command.
 
-![Chmod](img/loadimage/chmod-folders.png)
+![Chmod](img/linux/ubuntu/loadimage/chmod-folders.png)
 
 ### Store Container Image and Cert on VM
 
@@ -116,7 +116,7 @@ If the files are on a host machine and you do not already have tools for pushing
 
 If you are unsure of the IP address of your virtual machine, use the following command and note the Get-NetNeighbor command `Get-NetNeighbor -LinkLayerAddress 00-15-5d-*` and take note of it for later steps.
 
-![NetNeighbor](img/loadimage/get-netneighbor.png)
+![NetNeighbor](img/linux/ubuntu/loadimage/get-netneighbor.png)
 
 The easiest way to make SSH requests to the VM is by installing `openssh server` with the terminal command `sudo apt install openssh-server`.
 
@@ -126,11 +126,11 @@ For the example file transfers below, the image and PFX file have been saved on 
 2. Change the directory to `c:\eclipse`.
 3. From the host machine, run the SCP command `scp eclipse.pfx [username]@[ipaddress]:/home/[username]/eclipse/https`.
 
-    ![ScpCert](img/loadimage/scp-certificate.png)
+    ![ScpCert](img/linux/ubuntu/loadimage/scp-certificate.png)
 
 4. From the host machine, run the SCP command `scp eclipse.server.alpha-6 [username]@[ipaddress]:/home/[username]/eclipse`.
 
-    ![ScpImage](img/loadimage/scp-image.png)
+    ![ScpImage](img/linux/ubuntu/loadimage/scp-image.png)
 
 ### Load Container Image
 
@@ -140,7 +140,7 @@ Finally, load the image into Docker Engine with the docker load command.
 sudo docker load -i eclipse.server.alpha-6
 ```
 
-![DockerLoad](img/loadimage/docker-load.png)
+![DockerLoad](img/linux/ubuntu/loadimage/docker-load.png)
 
 ## Running Eclipse Container
 
@@ -156,13 +156,13 @@ Below is an example with the values from this guide.
 sudo docker run -dt -e "ASPNETCORE_URLS=https://+:443" -e "ASPNETCORE_Kestrel__Certificates__Default__Password=eclipse" -e "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/eclipse.pfx" -e "ASPNETCORE_HTTPS_PORT=443" -p 8000:443 --name Milyli.Eclipse.Server.Web -v /home/tim/eclipse/https:/https:ro -v /home/tim/eclipse/db:/db:rw -v /home/tim/eclipse/logs:/logs:rw milyli.eclipse.server
 ```
 
-![RunImage](img/run/run-command.png)
+![RunImage](img/linux/ubuntu/run/run-command.png)
 
 If following along, Eclipse should now be running on your VM!
 
 Navigate to `https://localhost:8000/swagger/index.html` on the VM to verify it's running successfully!
 
-![Running](img/run/eclipse-running.png)
+![Running](img/linux/ubuntu/run/eclipse-running.png)
 
 At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: `https://[IPADDRESS]:8000/swagger/index.html`. Additional steps will be required of your organization's network administrator to ensure the Eclipse server visible to your Relativity instance. 
 

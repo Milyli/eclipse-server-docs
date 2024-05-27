@@ -1,6 +1,6 @@
 # Welcome to Project Eclipse Docs
 
-<img src="img/Milyli Logo_blue product.png" style="height: 80px;" />
+<img src="img/milylilogo.png" style="height: 80px;" />
 
 The guides on this website are hosted as a part of the Milyli Github account and made available via GitHub Pages. They are meant to help you get up and running with Project Eclipse Server Alpha and Beta.
 
