@@ -150,11 +150,11 @@
 <p><img alt="UbuntuUserCreation" src="../img/linux/ubuntu/UserCreation.png" /></p>
 <h3 id="expand-the-hard-disk">Expand the Hard Disk</h3>
 <p>Hyper-V partitions the hard drive at the initial 12 GB automatically as a part of the quick-create process.  </p>
-<p>Ubuntu hosted on Hyper-V may have issues when trying to use <code>lvdisplay</code>,<code>lvextend</code>, or <code>GParted</code>. For this guide, <code>Cloud Guest Util</code>s` was used.</p>
+<p>Ubuntu hosted on Hyper-V may have issues when trying to use <code>lvdisplay</code>,<code>lvextend</code>, or <code>GParted</code>. For this guide, <code>Cloud Guest Utils</code> was used.</p>
 <ol>
 <li>Open the terminal.</li>
 <li>
-<p>Run the command <code>sudo fdisk -l</code> and note the name of the primary Linnux filesystem (if following along, it should be <code>/dev/sda1</code>).</p>
+<p>Run the command <code>sudo fdisk -l</code> and note the name of the primary Linux filesystem (if following along, it should be <code>/dev/sda1</code>).</p>
 <p><img alt="fdiskCommand" src="../img/linux/ubuntu/fdisk.png" /></p>
 </li>
 <li>
@@ -169,7 +169,7 @@
 <p>Follow the guide up until the step for running the <code>hello-world</code> docker container.</p>
 <p><img alt="HelloWorld" src="../img/linux/ubuntu/hello-world-success.png" /></p>
 <h2 id="create-a-developer-certificate">Create a Developer Certificate</h2>
-<p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a validate certificate authority should be used to generate the PFX.</p>
+<p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.</p>
 <p>A developer certificate can easily be created using Windows PowerShell and the following commands.</p>
 <ol>
 <li>Define a certificate variable using the <code>New-SelfSignedCertificate</code> command.</li>
@@ -228,7 +228,7 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <p>If following along, Eclipse should now be running on your VM!</p>
 <p>Navigate to <code>https://localhost:8000/swagger/index.html</code> on the VM to verify it's running successfully!</p>
 <p><img alt="Running" src="../img/linux/ubuntu/run/eclipse-running.png" /></p>
-<p>At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: <code>https://[IPADDRESS]:8000/swagger/index.html</code>. Additional steps will be required of your organization's network administrator to ensure the Eclipse server visible to your Relativity instance. </p>
+<p>At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: <code>https://[IPADDRESS]:8000/swagger/index.html</code>. Additional steps will be required of your organization's network administrator to ensure the Eclipse server is visible to your Relativity instance. </p>
 <p>In order for the Eclipse Relativity Application to access the server, the agent(s) servers where the Eclipse Agent will be created must have access to the base URL of the Eclipse server.</p>
 <h2 id="useful-commands">Useful Commands</h2>
 <h3 id="get-container-id">Get container Id</h3>
@@ -241,7 +241,7 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <pre><code class="language-bash">sudo docker container stop container_id
 </code></pre>
 <h2 id="running-docker-engine-rootless">Running Docker Engine Rootless</h2>
-<p>If needed, both Docker Engine and Eclipse can be ran rootless. Milyli provides limited technical support for this configuration beyond confirming that it is valid. We strongly suggest reading and following the <a href="https://docs.docker.com/engine/security/rootless/#prerequisites">official Docker documentation</a> for doing so.</p>
+<p>If needed, both Docker Engine and Eclipse can be run rootless. Milyli provides limited technical support for this configuration beyond confirming that it is valid. We strongly suggest reading and following the <a href="https://docs.docker.com/engine/security/rootless/#prerequisites">official Docker documentation</a> for doing so.</p>
               
             </div>
           </div><footer>
