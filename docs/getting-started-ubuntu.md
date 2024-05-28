@@ -53,10 +53,10 @@ You will be required to create a user account as a part of the operating system'
 
 Hyper-V partitions the hard drive at the initial 12 GB automatically as a part of the quick-create process.  
 
-Ubuntu hosted on Hyper-V may have issues when trying to use `lvdisplay`,`lvextend`, or `GParted`. For this guide, `Cloud Guest Util`s` was used.
+Ubuntu hosted on Hyper-V may have issues when trying to use `lvdisplay`,`lvextend`, or `GParted`. For this guide, `Cloud Guest Utils` was used.
 
 1. Open the terminal.
-2. Run the command `sudo fdisk -l` and note the name of the primary Linnux filesystem (if following along, it should be `/dev/sda1`).
+2. Run the command `sudo fdisk -l` and note the name of the primary Linux filesystem (if following along, it should be `/dev/sda1`).
 
     ![fdiskCommand](img/linux/ubuntu/fdisk.png)
 
@@ -76,7 +76,7 @@ Follow the guide up until the step for running the `hello-world` docker containe
 
 ## Create a Developer Certificate
 
-The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a validate certificate authority should be used to generate the PFX.
+The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.
 
 A developer certificate can easily be created using Windows PowerShell and the following commands.
 
@@ -164,7 +164,7 @@ Navigate to `https://localhost:8000/swagger/index.html` on the VM to verify it's
 
 ![Running](img/linux/ubuntu/run/eclipse-running.png)
 
-At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: `https://[IPADDRESS]:8000/swagger/index.html`. Additional steps will be required of your organization's network administrator to ensure the Eclipse server visible to your Relativity instance. 
+At this point, if you followed this guide exactly as written, Eclipse should also be accessible via the host machine using the IP address: `https://[IPADDRESS]:8000/swagger/index.html`. Additional steps will be required of your organization's network administrator to ensure the Eclipse server is visible to your Relativity instance. 
 
 In order for the Eclipse Relativity Application to access the server, the agent(s) servers where the Eclipse Agent will be created must have access to the base URL of the Eclipse server.
 
@@ -190,4 +190,4 @@ sudo docker container stop container_id
 
 ## Running Docker Engine Rootless
 
-If needed, both Docker Engine and Eclipse can be ran rootless. Milyli provides limited technical support for this configuration beyond confirming that it is valid. We strongly suggest reading and following the [official Docker documentation](https://docs.docker.com/engine/security/rootless/#prerequisites) for doing so.
+If needed, both Docker Engine and Eclipse can be run rootless. Milyli provides limited technical support for this configuration beyond confirming that it is valid. We strongly suggest reading and following the [official Docker documentation](https://docs.docker.com/engine/security/rootless/#prerequisites) for doing so.

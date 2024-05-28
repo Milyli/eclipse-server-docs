@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Windows (Docker Desktop) - Project Eclipse Guides</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Windows (Docker Desktop)";
+        var mkdocs_page_input_path = "getting-started-windows.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Project Eclipse Guides
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">On-Premises Setup Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting-started-ubuntu/">Linux (Ubuntu)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">Windows (Docker Desktop)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-directories-for-container-volumes">Create directories for container volumes</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-a-developer-certificate">Create a developer certificate</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#load-the-docker-image">Load the docker image</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-the-docker-container">Start the docker container</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Project Eclipse Guides</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">On-Premises Setup Guides</li>
+      <li class="breadcrumb-item active">Windows (Docker Desktop)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><img src="../img/milylilogo.png" style="height: 80px;" /></p>
+<h1 id="hosting-eclipse-w-docker-desktop-on-windows">Hosting Eclipse w/ Docker Desktop on Windows</h1>
+<h2 id="requirements">Requirements</h2>
+<p>The following requirements assume that a local server or computer will be used for initial alpha testing. A machine that can have Docker Desktop installed on it must be selected. If a different hosting infrastructure is used, this document will provide high-level details that can be adapted to your preferred solution. Milyli is available to assist in working through your preferred testing setup!</p>
+<p><strong>Note:</strong> <em>For more information about Docker and its related components, please refer to
+the <a href="https://www.docker.com/products/docker-desktop/">official documentation</a>.</em></p>
+<ul>
+<li>Download and install <a href="https://docs.docker.com/desktop/install/windows-install/">Docker Desktop</a> with WSL 2 backend.</li>
+<li>Install using default settings, following all prompts, and restart as necessary.</li>
+<li>If using Windows Server, ensure the nested virtualization Windows feature is enabled.</li>
+<li>PowerShell 5 or greater <em>(PowerShell 7+ suggested)</em></li>
+<li>Windows Terminal <em>(Strongly suggested)</em></li>
+</ul>
+<h2 id="setup">Setup</h2>
+<h3 id="create-directories-for-container-volumes">Create directories for container volumes</h3>
+<ol>
+<li>Create a working Eclipse Directory <em>(e.g. c:\eclipse)</em>.</li>
+<li>
+<p>Create the following child directories:</p>
+<ul>
+<li>c:\eclipse\db</li>
+<li>c:\eclipse\https</li>
+<li>c:\eclipse\logs</li>
+<li>c:\eclipse\logs\metrics</li>
+</ul>
+</li>
+<li>
+<p>Download the <strong>eclipse.server.alpha</strong> container image shared by Milyli and place it in the root directory.</p>
+</li>
+</ol>
+<h3 id="create-a-developer-certificate">Create a developer certificate</h3>
+<p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a validate certificate authority should be used to generate the PFX.</p>
+<p>A developer certificate can easily be created using Windows PowerShell and the following commands.</p>
+<ol>
+<li>Define a certificate variable using the <code>New-SelfSignedCertificate</code> command.</li>
+<li>Create (and retained) a password for the cert.</li>
+<li>Export the PFX for the newly created Self Signed Certificate.</li>
+</ol>
+<pre><code class="language-bash">$NewCert = New-SelfSignedCertificate -Type SSLServerAuthentication -DnsName localhost -CertStoreLocation Cert:\CurrentUser\My
+
+$Pwd = ConvertTo-SecureString -String &quot;eclipse&quot; -Force -AsPlainText
+
+Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\https\eclipse.pfx&quot; -Password $Pwd
+</code></pre>
+<p><img alt="CreateCert" src="../img/linux/ubuntu/cert/cert-create.png" /></p>
+<h2 id="installation">Installation</h2>
+<h3 id="load-the-docker-image">Load the docker image</h3>
+<ol>
+<li>Open Windows Terminal.</li>
+<li>
+<p>Validate that the docker command is available by using the command <code>docker</code>.</p>
+<ul>
+<li>Docker should print out usage instructions if everything is ready to go.</li>
+</ul>
+</li>
+<li>
+<p>Type the following command to load the docker image</p>
+</li>
+</ol>
+<pre><code class="language-bash">docker load -i c:\eclipse\eclipse.server.alpha
+</code></pre>
+<p>Confirm the image is loaded by using the command <code>docker image list</code>. Under repository, <strong>eclipse.server</strong> should be one of the visible rows.</p>
+<h3 id="start-the-docker-container">Start the docker container</h3>
+<p>With the image loaded we can now initialize the container with the <code>docker run</code> command.</p>
+<p>The following command provides the necessary parameters to the web server in the container to take advantage of the supplied certificate, what port to run on, and location information for the previously created physical directories that will be used for the container volumes. Ensure to replace the password with the password you set on the PFX in the previous step.</p>
+<pre><code class="language-bash">docker run -dt -e &quot;ASPNETCORE_URLS=https://+:443&quot; -e
+&quot;ASPNETCORE_Kestrel__Certificates__Default__Password=INSERTPFXPASSWORDHERE&quot; -e
+&quot;ASPNETCORE_Kestrel__Certificates__Default__Path=/https/eclipse.pfx&quot; -e
+&quot;ASPNETCORE_HTTPS_PORT=443&quot; -p 8000:443 --name Milyli.Eclipse.Server.Web -v
+c:\eclipse\https:/https:ro -v c:\eclipse\db:/db:rw -v
+c:\eclipse\logs:/logs:rw milyli.eclipse.server
+</code></pre>
+<p>If everything is set up correctly, this will initialize the docker container and you are good to go!</p>
+<h2 id="testing">Testing</h2>
+<p>To quickly validate that the container is up and running, the API documentation should now be available locally. Open a browser and navigate to <em><a href="https://localhost:8000/swagger/index.html">https://localhost:8000/swagger/index.html</a></em>. API documentation should load after a few moments.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../getting-started-ubuntu/" class="btn btn-neutral float-left" title="Linux (Ubuntu)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../getting-started-ubuntu/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
