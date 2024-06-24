@@ -91,6 +91,8 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../getting-started-windows/">Windows (Docker Desktop)</a>
                   </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../getting-started-iis/">IIS (Windows Server 2022+)</a>
+                  </li>
               </ul>
       </div>
     </div>
@@ -120,7 +122,7 @@
 <h1 id="hosting-eclipse-w-docker-engine-on-ubuntu">Hosting Eclipse w/ Docker Engine on Ubuntu</h1>
 <h2 id="requirements">Requirements</h2>
 <p>The following user guide was built using the Ubuntu Noble 24.04 (LTS, 64-bit) running via Hyper-V on a Windows 11 desktop computer on Milyli’s private network.  </p>
-<p>Nearly all steps followed in this guide can be followed regardless of the host machine of the Linux distribution including a Linux server running Ubuntu, a Windows Server with an Ubuntu VM, or a VM hosted on a cloud service such as Azure or AWS.</p>
+<p>Nearly all steps followed in this guide can be followed regardless of the host machine of the Linux distribution. A Linux server running Ubuntu, a Windows Server with an Ubuntu VM, or a VM hosted on a cloud service such as Azure or AWS are all viable options.</p>
 <p>Native cloud service hosting is supported but not covered via this document.</p>
 <p>This guide will install and use Docker Engine via Docker’s apt repository rather than use Docker Desktop for Linux. If you are using an existing server, you should ensure that old docker files are removed. For more details refer to the <a href="https://docs.docker.com/engine/install/ubuntu/#uninstall-old-versions">Docker removal instructions</a>.</p>
 <p>Note: For more general information about Docker and its related components, please refer to the <a href="https://www.docker.com/">official documentation</a>.</p>
@@ -169,11 +171,11 @@
 <p>Follow the guide up until the step for running the <code>hello-world</code> docker container.</p>
 <p><img alt="HelloWorld" src="../img/linux/ubuntu/hello-world-success.png" /></p>
 <h2 id="create-a-developer-certificate">Create a Developer Certificate</h2>
-<p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.</p>
+<p>The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, a self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.</p>
 <p>A developer certificate can easily be created using Windows PowerShell and the following commands.</p>
 <ol>
 <li>Define a certificate variable using the <code>New-SelfSignedCertificate</code> command.</li>
-<li>Create (and retained) a password for the cert.</li>
+<li>Create (and retain) a password for the cert.</li>
 <li>Export the PFX for the newly created Self Signed Certificate.</li>
 </ol>
 <pre><code class="language-bash">$NewCert = New-SelfSignedCertificate -Type SSLServerAuthentication -DnsName localhost -CertStoreLocation Cert:\CurrentUser\My

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>IIS (Windows Server 2022+) - Project Eclipse Guides</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "IIS (Windows Server 2022+)";
+        var mkdocs_page_input_path = "getting-started-iis.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Project Eclipse Guides
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">On-Premises Setup Guides</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting-started-ubuntu/">Linux (Ubuntu)</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../getting-started-windows/">Windows (Docker Desktop)</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">IIS (Windows Server 2022+)</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#supported-windows-versions">Supported Windows Versions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#server-setup-and-pre-requisites">Server Setup and Pre-Requisites</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#server-packages">Server Packages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-python">Installing Python</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-analyzers-and-default-llm">Installing Analyzers and Default LLM</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extract-the-website">Extract the Website</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-a-developer-certificate">Create a Developer Certificate</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-a-system-account">Create a System Account</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#iis-setup">IIS Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-the-application-pool">Create the Application Pool</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-the-website">Create the Website</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#new-default-website">New Default Website</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#existing-default-website">Existing Default Website</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-the-virtual-app">Create the Virtual App</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#configure-directory-permissions">Configure Directory Permissions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#restart-iis">Restart IIS</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wrap-up-and-troubleshooting">Wrap-up and Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#checking-logs">Checking logs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#http-error-50032-failed-to-load-net-core-host">HTTP Error 500.32 - Failed to load .NET Core host</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#failed-to-start-process-python">Failed to start process python</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Project Eclipse Guides</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">On-Premises Setup Guides</li>
+      <li class="breadcrumb-item active">IIS (Windows Server 2022+)</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <p><img src="../img/milylilogo.png" style="height: 80px;" /></p>
+<h1 id="hosting-eclipse-w-iis-on-windows-server-2022">Hosting Eclipse w/ IIS on Windows Server 2022+</h1>
+<h2 id="requirements">Requirements</h2>
+<p>The following user guide was built using Windows Server 2022 Standard Edition running via Hyper-V on a Windows 11 desktop computer on Milyli's private network.</p>
+<p>Nearly all steps followed in this guide can be followed regardless of the host machine. A physical machine running Windows Server, virtual windows server infrastructure, or a Windows virtual machine hosted on a cloud service such as Azure or AWS are all viable options.</p>
+<p>Native cloud service hosting is supported but not covered via this document.</p>
+<p>You will be required to create a non-admin service account for creating the application pool. This service account will need to be able to access the python command. It is recommended that a new, separate service account is used for this purpose to limit access of the web server to only Eclipse files.</p>
+<p>Python will be installed on the server as a part of this guide.</p>
+<h3 id="supported-windows-versions">Supported Windows Versions</h3>
+<ul>
+<li>Windows Server 2022+ Standard Edition</li>
+<li>IIS 10.0+</li>
+</ul>
+<h2 id="server-setup-and-pre-requisites">Server Setup and Pre-Requisites</h2>
+<h3 id="server-packages">Server Packages</h3>
+<p>Download and install the following packages.</p>
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-8.0">Install the .NET Core Hosting Bundle</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170">Install Visual C++ Redistribute Package</a></li>
+<li>(Recommended) <a href="https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.4#msi">PowerShell 7</a></li>
+</ul>
+<h3 id="installing-python">Installing Python</h3>
+<p>At the heart of the Eclipse Server is a .NET application that makes use of Python. There are two considerations that should be made when installing Python.</p>
+<ol>
+<li>Python needs to be accessible by the identity account of the Eclipse application pool.</li>
+<li>Python will also need to be used during setup to install the Presidio Analyzer and load the default LLM into spaCy.</li>
+</ol>
+<p>Eclipse requires Python <strong>3.10.x</strong> or higher. This guide was written using Python 3.12.4.</p>
+<p>Python can be downloaded from the <a href="https://www.python.org/downloads/windows/">python.org website</a>.</p>
+<p>During the installation it is recommended to install python for all users. If this is not possible, python will need to be installed for both your administrator account and the service account created for the Eclipse application pool identity.</p>
+<p>To install for all users, use the following prompts during the installation process.</p>
+<ul>
+<li>Select use admin privileges when installing py.exe</li>
+<li>add python.exe to PATH</li>
+</ul>
+<p><img alt="InstallAllUsers1" src="../img/iis/python-install-1.png" /></p>
+<ul>
+<li>Select <strong>Customize installation</strong></li>
+<li>Ensure that <em>for all users</em> is selected for the py launcher</li>
+<li>Select <strong>Next</strong></li>
+</ul>
+<p><img alt="InstallAllUsers2" src="../img/iis/install-python-2.png" /></p>
+<ul>
+<li>On the next screen, select <strong>Install Python 3.13 for all users</strong></li>
+</ul>
+<p>Without selecting this option, python will be installed for only the currently logged in user. If you elect to skip this step, you must install python for the service account that the Eclipse application pool identity will run as!</p>
+<p><img alt="InstallAllUsers3" src="../img/iis/install-python-all-users.png" /></p>
+<h3 id="installing-analyzers-and-default-llm">Installing Analyzers and Default LLM</h3>
+<p>Python will be used to install the presidio analyzers and install Eclipse's default language model.</p>
+<p>Launch PowerShell 7 as an administrator and use the following command to install the presidio analyzers.</p>
+<pre><code class="language-bash">pip install presidio_analyzer
+</code></pre>
+<p><img alt="PresidioInstall" src="../img/iis/presidio_analyzer_install.png" /></p>
+<p>After the install is successful, install the default language model with the following command.</p>
+<pre><code class="language-bash">python -m spacy download en_core_web_lg
+</code></pre>
+<p><img alt="LLMInstall" src="../img/iis/install_spacy_model.png" /></p>
+<p><img alt="LLMSuccess" src="../img/iis/install_spacy_model_success.png" /></p>
+<h3 id="extract-the-website">Extract the Website</h3>
+<p>Milyli will share a zip file with you that contains the Eclipse server directory. This zip should be extracted to a root folder. In this example, we extract everything to <code>C:\eclipse-server</code>.</p>
+<p>Ensure that all zip contents are in this root folder.</p>
+<p><img alt="EclipseFolder" src="../img/iis/extract-directory.png" /></p>
+<p>The eclipse server directory structure consists of the following:</p>
+<ul>
+<li>The <code>www</code> directory contains the files for the website and API.</li>
+<li>The <code>data</code> directory is used for storing app data, requests, responses, and databases.</li>
+<li>The <code>pi-extractor</code> directory contains the python application.</li>
+</ul>
+<h3 id="create-a-developer-certificate">Create a Developer Certificate</h3>
+<p>The Eclipse container requires an HTTPS certificate start and run. For Alpha and Beta purposes, a self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used.</p>
+<p>A developer certificate can easily be created using Windows PowerShell and the following commands.</p>
+<ol>
+<li>Define a certificate variable using the <code>New-SelfSignedCertificate</code> command.</li>
+<li>Create (and retain) a password for the cert.</li>
+<li>If using this certificate with other Eclipse setups, export the PFX for the newly created Self Signed Certificate.</li>
+</ol>
+<pre><code class="language-bash">$NewCert = New-SelfSignedCertificate -Type SSLServerAuthentication -DnsName localhost -CertStoreLocation Cert:\CurrentUser\My
+
+$Pwd = ConvertTo-SecureString -String &quot;eclipse&quot; -Force -AsPlainText
+
+Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot; -Password $Pwd
+</code></pre>
+<p><img alt="CreateCert" src="../img/linux/ubuntu/cert/cert-create.png" /></p>
+<h3 id="create-a-system-account">Create a System Account</h3>
+<p>In this guide, we use a local account to serve as the service account. A service account should be created and use based on your companies IT policies. The account does not need to be a local admin on the server or have any domain permission.</p>
+<p>This account will only be used to grant limited permissions to the eclipse directory and act as the identity of the website application pool.</p>
+<h2 id="iis-setup">IIS Setup</h2>
+<p>In the following steps, we'll create the IIS website from scratch. At any point, feel free to utilize any standard operating procedures your organization utilizes for hosting websites on your network in IIS.</p>
+<h3 id="create-the-application-pool">Create the Application Pool</h3>
+<p>In the following steps we will create the application pool that will be used by the website.</p>
+<ol>
+<li>Launch IIS Manager as an administrator.</li>
+<li>Create a new application pool.</li>
+<li>Give the application name, we chose <code>eclipse-server</code>.</li>
+<li>Choose <code>No Managed Code</code> for the <strong>.NET CLR Version</strong> option.</li>
+<li>
+<p>Leave <strong>Managed pipeline mode</strong> set to <code>integrated</code>.</p>
+<p><img alt="CreateAppPool1" src="../img/iis/create-app-pool1.png" /></p>
+</li>
+<li>
+<p>Once created, click Advanced settings in the menu on the right.</p>
+</li>
+<li>Set <strong>Enabled 32-Bit Application</strong> to <code>true</code>.</li>
+<li>Change <strong>Start Mode</strong> to <code>Always Running</code>.</li>
+<li>
+<p>Change <strong>Idle Time-out (minutes)</strong> to <code>0</code>.</p>
+<p><img alt="CreateAppPool2" src="../img/iis/create-app-pool2-advanced.png" /></p>
+</li>
+<li>
+<p>Change the <strong>ApplicationPoolIdentity</strong> to the service account created during setup.</p>
+</li>
+</ol>
+<h3 id="create-the-website">Create the Website</h3>
+<p>In these steps, we will create and configure the base website for the server. This assumes that built-in default website is removed beforehand. If a website already exists with a valid certificate, then this website should be able to be used instead of following these instructions.</p>
+<h4 id="new-default-website">New Default Website</h4>
+<ol>
+<li>Create a new website in IIS and provide it a name such as <code>EclipseWeb</code> or <code>Default Website</code>.</li>
+<li>Choose the <code>DefaultAppPool</code>.</li>
+<li>Set the the <strong>Physical path</strong> to the default IIS path at <code>C:\inetpub\wwwroot\</code>.</li>
+<li>(Optional) Configure the host name if you are running multiple websites from this server.</li>
+<li>Add an https binding and select the previously created or installed SSL Certificate.</li>
+<li>Leave all other checkboxes unchecked.</li>
+<li>
+<p>Create the website.</p>
+<p><img alt="DefaultWebSetup" src="../img/iis/default-web-setup.png" /></p>
+</li>
+<li>
+<p>Select <strong>Advanced settings</strong> and set <strong>Preload Enabled</strong> to <code>True</code>.</p>
+<p><img alt="DefaultWebSetup2" src="../img/iis/default-web-setup-advanced.png" /></p>
+</li>
+</ol>
+<h4 id="existing-default-website">Existing Default Website</h4>
+<p>If you have a pre-existing default website, then the only change that is recommended is to ensure that <strong>Preload Enabled</strong> is set to <code>True</code> in the advanced settings of the website.</p>
+<h3 id="create-the-virtual-app">Create the Virtual App</h3>
+<p>The actual Eclipse server will be setup as an application under the default website. To setup the application follow these steps using an existing website or the one created in the previous section.</p>
+<ol>
+<li>Right click on the website and select <code>Add application</code>.</li>
+<li>Input <code>eclipse</code> as the alias.</li>
+<li>Choose the <code>eclipse-server</code> application pool created in this guide.</li>
+<li>Set the <strong>Physical path</strong> to the <code>C:\eclipse-server\www</code> directory or wherever the root folder is for the unzipped Eclipse server files.</li>
+</ol>
+<p><img alt="CreateApplication" src="../img/iis/create-application.png" /></p>
+<h3 id="configure-directory-permissions">Configure Directory Permissions</h3>
+<p>The identity of the application pool needs permission to read, write, and execute python scripts from the Eclipse server. To set these permissions follow these steps.</p>
+<ol>
+<li>On the root directory <code>eclipse-server</code>, right click and select properties.</li>
+<li>On the <code>Security</code> tab, click <code>Edit</code>.</li>
+<li>
+<p>Click Add then search for and add the service account (ours is <code>eclipse-server</code> in this guide).</p>
+<p><img alt="AddUser" src="../img/iis/directory-permissions-1.png" /></p>
+</li>
+<li>
+<p>Select the service account.</p>
+</li>
+<li>
+<p>Add the permissions <code>Read &amp; Execute</code>, <code>List folder contents</code>, and <code>Read</code> and click Ok.</p>
+<p><img alt="AddUser2" src="../img/iis/directory-permissions-2.png" /></p>
+</li>
+<li>
+<p>Open the directory, right click on the <code>data</code> directory, and select properties.</p>
+</li>
+<li>On the <code>Security</code> tab, ensure that the service account has access to the folder.</li>
+<li>Ensure that the account has <code>Modify</code> and <code>Write</code> permissions on the directory.</li>
+</ol>
+<h3 id="restart-iis">Restart IIS</h3>
+<p>Either from IIS Manager or command prompt, restart the web server. If using the IIS Manager, you can do so from the root node.</p>
+<p><img alt="RestartWebServer" src="../img/iis/restart-web-server.png" /></p>
+<p>Otherwise, open PowerShell 7 as an administrator and input the command <code>iisreset</code>.</p>
+<h2 id="wrap-up-and-troubleshooting">Wrap-up and Troubleshooting</h2>
+<p>Depending on how the website the virtual application was created under is configured, the Eclipse server should now be running!</p>
+<p>In this guide, by leaving everything at default, the server is available under localhost and can be accessed by navigating to <code>https://localhost/eclipse/swagger</code>. The URL will be different based on the configuration of your website.</p>
+<p><img alt="Running" src="../img/iis/runningwebsite.png" /></p>
+<h3 id="checking-logs">Checking logs</h3>
+<p>Logs for the website can be accessed from two locations. Normal, IIS application logs will automatically appear in the servers Event Viewer. You can review these logs by hitting the <code>windows key</code> typing in <code>event</code> and selecting the <code>Event Viewer</code> app.</p>
+<p>In the Event Viewer, navigate to <code>Windows Logs -&gt; Application</code> and look for application errors.</p>
+<p>Specific logs can also be accessed directly from the eclipse logs stored in the <code>C:\eclipse-server\data\logs</code> directory.</p>
+<p><img alt="Logs" src="../img/iis/eclipse-logs.png" /></p>
+<h3 id="http-error-50032-failed-to-load-net-core-host">HTTP Error 500.32 - Failed to load .NET Core host</h3>
+<p><img alt="500.32" src="../img/iis/troubleshooting-different-bitness.png" /></p>
+<p>This error indicates that the server does not have the pre-requisites for IIS to run a .NET Core application. Ensure that the C++ redistribute package was installed earlier in this guide.</p>
+<h3 id="failed-to-start-process-python">Failed to start process python</h3>
+<p>This error will present itself both in the host servers Event Viewer and the Eclipse servers logs.</p>
+<p>The full error will resemble the following string:</p>
+<pre><code class="language-bash">Description: The process was terminated due to an unhandled exception.
+Exception Info: Milyli.Eclipse.Server.Analyzer.Exceptions.ExternalProcessException: Failed to start process python
+---&gt; System.ComponentModel.Win32Exception (2): An error occurred trying to start process python with working directory C:\eclipse-server\www. The system cannot find the file specified.
+</code></pre>
+<p>This error indicates that the user the application pool is running under does not have access to python. Either install python for all users or log into the service account and ensure that python is installed for that user.</p>
+<p>Installing for the individual account was not tested for the writing of this guide.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../getting-started-windows/" class="btn btn-neutral float-left" title="Windows (Docker Desktop)"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../getting-started-windows/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
