@@ -3,4 +3,5 @@ nav:
   - 'On-Premises Setup Guides':
     - 'Linux (Ubuntu)': 'getting-started-ubuntu.md'
     - 'Windows (Docker Desktop)': 'getting-started-windows.md'
+    - 'IIS (Windows Server 2022+)': 'getting-started-iis.md'
 theme: readthedocs

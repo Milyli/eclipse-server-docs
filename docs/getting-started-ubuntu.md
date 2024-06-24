@@ -6,7 +6,7 @@
 
 The following user guide was built using the Ubuntu Noble 24.04 (LTS, 64-bit) running via Hyper-V on a Windows 11 desktop computer on Milyli’s private network.  
 
-Nearly all steps followed in this guide can be followed regardless of the host machine of the Linux distribution including a Linux server running Ubuntu, a Windows Server with an Ubuntu VM, or a VM hosted on a cloud service such as Azure or AWS.
+Nearly all steps followed in this guide can be followed regardless of the host machine of the Linux distribution. A Linux server running Ubuntu, a Windows Server with an Ubuntu VM, or a VM hosted on a cloud service such as Azure or AWS are all viable options.
 
 Native cloud service hosting is supported but not covered via this document.
 
@@ -76,12 +76,12 @@ Follow the guide up until the step for running the `hello-world` docker containe
 
 ## Create a Developer Certificate
 
-The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, an self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.
+The Eclipse container requires an HTTPS certificate PFX in order to start and run. For Alpha and Beta purposes, a self-signed developer certificate can be used. If possible, a proper certificate from a valid certificate authority should be used to generate the PFX.
 
 A developer certificate can easily be created using Windows PowerShell and the following commands.
 
 1. Define a certificate variable using the `New-SelfSignedCertificate` command.
-2. Create (and retained) a password for the cert.
+2. Create (and retain) a password for the cert.
 3. Export the PFX for the newly created Self Signed Certificate.
 
 ``` bash
