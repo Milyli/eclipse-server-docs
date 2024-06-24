@@ -59,7 +59,7 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#installing-python">Installing Python</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#installing-analyzers-and-default-llm">Installing Analyzers and Default LLM</a>
+    <li class="toctree-l3"><a class="reference internal" href="#installing-analyzers-and-default-spacy-model">Installing Analyzers and Default spaCy Model</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#extract-the-website">Extract the Website</a>
     </li>
@@ -151,7 +151,7 @@
 <p>At the heart of the Eclipse Server is a .NET application that makes use of Python. There are two considerations that should be made when installing Python.</p>
 <ol>
 <li>Python needs to be accessible by the identity account of the Eclipse application pool.</li>
-<li>Python will also need to be used during setup to install the Presidio Analyzer and load the default LLM into spaCy.</li>
+<li>Python will also need to be used during setup to install the Presidio Analyzer and load the default spaCy model.</li>
 </ol>
 <p>Eclipse requires Python <strong>3.10.x</strong> or higher. This guide was written using Python 3.12.4.</p>
 <p>Python can be downloaded from the <a href="https://www.python.org/downloads/windows/">python.org website</a>.</p>
@@ -173,7 +173,7 @@
 </ul>
 <p>Without selecting this option, python will be installed for only the currently logged in user. If you elect to skip this step, you must install python for the service account that the Eclipse application pool identity will run as!</p>
 <p><img alt="InstallAllUsers3" src="../img/iis/install-python-all-users.png" /></p>
-<h3 id="installing-analyzers-and-default-llm">Installing Analyzers and Default LLM</h3>
+<h3 id="installing-analyzers-and-default-spacy-model">Installing Analyzers and Default spaCy Model</h3>
 <p>Python will be used to install the presidio analyzers and install Eclipse's default language model.</p>
 <p>Launch PowerShell 7 as an administrator and use the following command to install the presidio analyzers.</p>
 <pre><code class="language-bash">pip install presidio_analyzer
