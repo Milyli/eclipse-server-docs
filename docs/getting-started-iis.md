@@ -34,7 +34,7 @@ Download and install the following packages.
 At the heart of the Eclipse Server is a .NET application that makes use of Python. There are two considerations that should be made when installing Python.
 
 1. Python needs to be accessible by the identity account of the Eclipse application pool.
-2. Python will also need to be used during setup to install the Presidio Analyzer and load the default LLM into spaCy.
+2. Python will also need to be used during setup to install the Presidio Analyzer and load the default spaCy model.
 
 Eclipse requires Python **3.10.x** or higher. This guide was written using Python 3.12.4.
 
@@ -61,7 +61,7 @@ Without selecting this option, python will be installed for only the currently l
 
 ![InstallAllUsers3](img/iis/install-python-all-users.png)
 
-### Installing Analyzers and Default LLM
+### Installing Analyzers and Default spaCy Model
 
 Python will be used to install the presidio analyzers and install Eclipse's default language model.
 
