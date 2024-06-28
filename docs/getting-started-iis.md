@@ -55,7 +55,7 @@ To install for all users, use the following prompts during the installation proc
 
 ![InstallAllUsers2](img/iis/install-python-2.png)
 
-- On the next screen, select **Install Python 3.13 for all users**
+- On the next screen, select **Install Python 3.12 for all users**
 
 Without selecting this option, python will be installed for only the currently logged in user. If you elect to skip this step, you must install python for the service account that the Eclipse application pool identity will run as!
 
