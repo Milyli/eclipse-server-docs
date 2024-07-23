@@ -47,19 +47,19 @@ To install for all users, use the following prompts during the installation proc
 - Select use admin privileges when installing py.exe
 - add python.exe to PATH
 
-![InstallAllUsers1](img/iis/python-install-1.png)
+![InstallAllUsers1](img/iis/Python-3.12.4-setup-wizard-SS-1.png)
 
 - Select **Customize installation**
 - Ensure that *for all users* is selected for the py launcher
 - Select **Next**
 
-![InstallAllUsers2](img/iis/install-python-2.png)
+![InstallAllUsers2](img/iis/Python-3.12.4-setup-wizard-SS-2.png)
 
 - On the next screen, select **Install Python 3.12 for all users**
 
 Without selecting this option, python will be installed for only the currently logged in user. If you elect to skip this step, you must install python for the service account that the Eclipse application pool identity will run as!
 
-![InstallAllUsers3](img/iis/install-python-all-users.png)
+![InstallAllUsers3](img/iis/Python-3.12.4-setup-wizard-SS-3.png)
 
 ### Installing Analyzers and Default spaCy Model
 
