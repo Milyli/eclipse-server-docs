@@ -333,6 +333,11 @@ Exception Info: Milyli.Eclipse.Server.Analyzer.Exceptions.ExternalProcessExcepti
 <p>This error indicates that the user the application pool is running under does not have access to python. Either install python for all users or log into the service account and ensure that python is installed for that user.</p>
 <p>Installing for the individual account was not tested for the writing of this guide.</p>
 <h3 id="modulenotfounderror-no-module-named-presidio_analyzer">ModuleNotFoundError: No module named 'presidio_analyzer'</h3>
+<pre><code class="language-bash">{
+  &quot;properties&quot;: [],
+  &quot;error&quot;: &quot;Traceback (most recent call last):\r\n  File \&quot;C:\\eclipse-server\\pi-extractor\\main.py\&quot;, line 4, in &lt;module&gt;\r\n    from pi_extractor import PIExtractor\r\n  File \&quot;C:\\eclipse-server\\pi-extractor\\pi_extractor.py\&quot;, line 4, in &lt;module&gt;\r\n    from presidio_analyzer import AnalyzerEngine, RecognizerRegistry\r\nModuleNotFoundError: No module named 'presidio_analyzer'\r\n&quot;
+}
+</code></pre>
 <p>When attempting to test an Eclipse endpoint, if the response from Eclipse includes this message, it is due to Eclipse not being able to find the presidio analyzer python module. Eclipse by default checks for the module to be installed at the system level in python rather than at the user level. Logging into the server on an administrator account and running the <code>pip install presidio_analyzer</code> should remedy this.</p>
               
             </div>
