@@ -95,6 +95,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#http-error-50032-failed-to-load-net-core-host">HTTP Error 500.32 - Failed to load .NET Core host</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#http-error-50019-internal-server-error">HTTP Error 500.19 - Internal Server Error</a>
+    </li>
     <li class="toctree-l3"><a class="reference internal" href="#failed-to-start-process-python">Failed to start process python</a>
     </li>
         </ul>
@@ -306,6 +308,19 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <h3 id="http-error-50032-failed-to-load-net-core-host">HTTP Error 500.32 - Failed to load .NET Core host</h3>
 <p><img alt="500.32" src="../img/iis/troubleshooting-different-bitness.png" /></p>
 <p>This error indicates that the server does not have the pre-requisites for IIS to run a .NET Core application. Ensure that the C++ redistribute package was installed earlier in this guide.</p>
+<h3 id="http-error-50019-internal-server-error">HTTP Error 500.19 - Internal Server Error</h3>
+<p>This is most likely due to one of two issues.</p>
+<ol>
+<li>
+<p>The .NET Core Hosting Bundle was installed prior to IIS being installed</p>
+<p>To remedy this, re-download the hosting core bundle and select Repair. Try navigating to the website again.</p>
+<p><a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-8.0">Install the .NET Core Hosting Bundle</a></p>
+</li>
+<li>
+<p>The Application Pool does not have access to the location that web.config is located. </p>
+</li>
+</ol>
+<p>Ensure that the Identity user that the application pool is running as has <code>Read &amp; Execute</code>, <code>List folder contents</code>, and <code>Read</code> to the root eclipse folder.</p>
 <h3 id="failed-to-start-process-python">Failed to start process python</h3>
 <p>This error will present itself both in the host servers Event Viewer and the Eclipse servers logs.</p>
 <p>The full error will resemble the following string:</p>
