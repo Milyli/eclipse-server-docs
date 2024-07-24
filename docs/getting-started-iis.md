@@ -234,6 +234,20 @@ Specific logs can also be accessed directly from the eclipse logs stored in the 
 
 This error indicates that the server does not have the pre-requisites for IIS to run a .NET Core application. Ensure that the C++ redistribute package was installed earlier in this guide.
 
+### HTTP Error 500.19 - Internal Server Error
+
+This is most likely due to one of two issues.
+
+1. The .NET Core Hosting Bundle was installed prior to IIS being installed
+
+    To remedy this, re-download the hosting core bundle and select Repair. Try navigating to the website again.
+
+    [Install the .NET Core Hosting Bundle](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-8.0)
+
+2. The Application Pool does not have access to the location that web.config is located. 
+
+Ensure that the Identity user that the application pool is running as has `Read & Execute`, `List folder contents`, and `Read` to the root eclipse folder.
+
 ### Failed to start process python
 
 This error will present itself both in the host servers Event Viewer and the Eclipse servers logs.
