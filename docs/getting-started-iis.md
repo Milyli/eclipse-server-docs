@@ -266,4 +266,11 @@ Installing for the individual account was not tested for the writing of this gui
 
 ### ModuleNotFoundError: No module named 'presidio_analyzer'
 
+``` bash
+{
+  "properties": [],
+  "error": "Traceback (most recent call last):\r\n  File \"C:\\eclipse-server\\pi-extractor\\main.py\", line 4, in <module>\r\n    from pi_extractor import PIExtractor\r\n  File \"C:\\eclipse-server\\pi-extractor\\pi_extractor.py\", line 4, in <module>\r\n    from presidio_analyzer import AnalyzerEngine, RecognizerRegistry\r\nModuleNotFoundError: No module named 'presidio_analyzer'\r\n"
+}
+```
+
 When attempting to test an Eclipse endpoint, if the response from Eclipse includes this message, it is due to Eclipse not being able to find the presidio analyzer python module. Eclipse by default checks for the module to be installed at the system level in python rather than at the user level. Logging into the server on an administrator account and running the `pip install presidio_analyzer` should remedy this.

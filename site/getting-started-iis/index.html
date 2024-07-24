@@ -99,6 +99,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#failed-to-start-process-python">Failed to start process python</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#modulenotfounderror-no-module-named-presidio_analyzer">ModuleNotFoundError: No module named 'presidio_analyzer'</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -317,10 +319,10 @@ Export-PfxCertificate -Cert $NewCert -FilePath &quot;C:\eclipse\eclipse.pfx&quot
 <p><a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-8.0">Install the .NET Core Hosting Bundle</a></p>
 </li>
 <li>
-<p>The Application Pool does not have access to the location that web.config is located. </p>
+<p>The Application Pool does not have access to the location that web.config is located.</p>
+<p>Ensure that the Identity user that the application pool is running as has <code>Read &amp; Execute</code>, <code>List folder contents</code>, and <code>Read</code> to the root eclipse folder.</p>
 </li>
 </ol>
-<p>Ensure that the Identity user that the application pool is running as has <code>Read &amp; Execute</code>, <code>List folder contents</code>, and <code>Read</code> to the root eclipse folder.</p>
 <h3 id="failed-to-start-process-python">Failed to start process python</h3>
 <p>This error will present itself both in the host servers Event Viewer and the Eclipse servers logs.</p>
 <p>The full error will resemble the following string:</p>
@@ -330,6 +332,8 @@ Exception Info: Milyli.Eclipse.Server.Analyzer.Exceptions.ExternalProcessExcepti
 </code></pre>
 <p>This error indicates that the user the application pool is running under does not have access to python. Either install python for all users or log into the service account and ensure that python is installed for that user.</p>
 <p>Installing for the individual account was not tested for the writing of this guide.</p>
+<h3 id="modulenotfounderror-no-module-named-presidio_analyzer">ModuleNotFoundError: No module named 'presidio_analyzer'</h3>
+<p>When attempting to test an Eclipse endpoint, if the response from Eclipse includes this message, it is due to Eclipse not being able to find the presidio analyzer python module. Eclipse by default checks for the module to be installed at the system level in python rather than at the user level. Logging into the server on an administrator account and running the <code>pip install presidio_analyzer</code> should remedy this.</p>
               
             </div>
           </div><footer>
