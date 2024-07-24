@@ -244,9 +244,9 @@ This is most likely due to one of two issues.
 
     [Install the .NET Core Hosting Bundle](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/hosting-bundle?view=aspnetcore-8.0)
 
-2. The Application Pool does not have access to the location that web.config is located. 
+2. The Application Pool does not have access to the location that web.config is located.
 
-Ensure that the Identity user that the application pool is running as has `Read & Execute`, `List folder contents`, and `Read` to the root eclipse folder.
+    Ensure that the Identity user that the application pool is running as has `Read & Execute`, `List folder contents`, and `Read` to the root eclipse folder.
 
 ### Failed to start process python
 
@@ -263,3 +263,7 @@ Exception Info: Milyli.Eclipse.Server.Analyzer.Exceptions.ExternalProcessExcepti
 This error indicates that the user the application pool is running under does not have access to python. Either install python for all users or log into the service account and ensure that python is installed for that user.
 
 Installing for the individual account was not tested for the writing of this guide.
+
+### ModuleNotFoundError: No module named 'presidio_analyzer'
+
+When attempting to test an Eclipse endpoint, if the response from Eclipse includes this message, it is due to Eclipse not being able to find the presidio analyzer python module. Eclipse by default checks for the module to be installed at the system level in python rather than at the user level. Logging into the server on an administrator account and running the `pip install presidio_analyzer` should remedy this.
